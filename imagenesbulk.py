@@ -148,9 +148,21 @@ def downloadWithName(urlsImagenes, nombre):
             except:
                 resultadosText.insert(float(i), 'Error\n')
 
+def quitarTildes(s):
+    replacements = (("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú", "u"),)
+    for a, b in replacements:
+        s = s.replace(a, b).replace(a.upper(), b.upper())
+    return s
+
+def getKeywordList(texto):
+    texto = quitarTildes(texto.lower().replace(' ','-').replace('.',''))
+    listaImagenes = texto.split('\n')
+    
+    return listaImagenes
+
 def downloadFromKeywords(urlsImagenes):
     texto2 = nameKeywords.get("1.0", END)
-    namessImagenes = texto2.split()
+    namessImagenes = getKeywordList(texto2)
     i = 1
     for url in urlsImagenes:
             try:
